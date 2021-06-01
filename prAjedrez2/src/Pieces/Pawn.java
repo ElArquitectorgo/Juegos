@@ -9,9 +9,9 @@ public class Pawn extends Piece {
 	public Pawn(String color) {		
 		try {
 			if (color == "white")
-				img = ImageIO.read(Pawn.class.getResource("/Game/images/Peonb.png"));
+				img = ImageIO.read(Pawn.class.getResource("/Pieces/images/Peonb.png"));
 			else
-				img = ImageIO.read(Pawn.class.getResource("/Game/images/Peonn.png"));
+				img = ImageIO.read(Pawn.class.getResource("/Pieces/images/Peonn.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

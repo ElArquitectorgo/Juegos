@@ -40,7 +40,7 @@ public class Window extends JFrame implements Runnable {
 		return window.getWidth() / 8;
 	}
 	
-    public void changeState(int newState) {
+    public void changeState(int newState) { // Paco: no entiendo qué quieres hacer con esto, dos formas distintas de jugar?
         currentState = newState;
         switch(currentState) {
             case 0:
@@ -54,7 +54,7 @@ public class Window extends JFrame implements Runnable {
         }
     }
     
-    public void update(double dt) {
+    public void update(double dt) { // Paco: ya sabes que para este juego vería más apropiado usar eventos
         Image dbImage = createImage(getWidth(), getHeight());
         Graphics dbg = dbImage.getGraphics();
         this.draw(dbg);

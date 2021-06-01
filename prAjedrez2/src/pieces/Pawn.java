@@ -3,10 +3,10 @@ package pieces;
 import javax.imageio.ImageIO;
 
 public class Pawn extends Piece {
-	private String color;
+	private String color; // Paco: ya tienes un color heredado de Piece
 	public Pawn(String color) {
 		try {
-			if (color == "white")
+			if (color == "white") // Paco: no deberías comparar cadenas con ==
 				img = ImageIO.read(Pawn.class.getResource("/pieces/images/Peonb.png"));
 			else
 				img = ImageIO.read(Pawn.class.getResource("/pieces/images/Peonn.png"));

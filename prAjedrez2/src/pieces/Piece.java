@@ -7,7 +7,7 @@ import game.Window;
 
 public abstract class Piece {
 	protected BufferedImage img;
-	protected String color;
+	protected String color; // Paco: define color como un enumerado
 
 	abstract public boolean isValid(int xi, int yi, int xf, int yf);
 

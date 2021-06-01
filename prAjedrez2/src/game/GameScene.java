@@ -1,4 +1,4 @@
-package Game;
+package game;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,22 +7,22 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 
-import Pieces.Pawn;
-import Pieces.Piece;
+import pieces.Pawn;
+import pieces.Piece;
 
 public class GameScene extends Scene {
 	private ML mouseListener;
 	private Piece [][] tablero;
 	private Piece moving;
-	private int moving_pos_x, moving_pos_y;
+	private int moving_pos_x, moving_pos_y, pos_xi, pos_yi;
 	
 	public GameScene(ML mouseListener) {
 		this.mouseListener = mouseListener;
 		tablero = new Piece[8][8];
-		tablero[0][0] = new Pawn("white");
-		tablero[1][0] = new Pawn("black");
-		tablero[2][0] = new Pawn("black");
-		tablero[5][4] = new Pawn("black");
+		for (int i = 0; i < 8; i ++) {
+			tablero[i][1] = new Pawn("black");
+			tablero[i][6] = new Pawn("white");
+		}
 	}
 	
 	public int getPos(int n) {
@@ -34,19 +34,26 @@ public class GameScene extends Scene {
 	}
 	
 	@Override
-	public void update(double dt) {
-		// Con MouseInfo ya no hacen falta los métodos getX y getY de la clase ML
-		
+	public void update(double dt) {		
 		Point p = MouseInfo.getPointerInfo().getLocation();
 		if (mouseListener.isPressed() && moving == null) {
 			moving = tablero[getIndex(p.x)][getIndex(p.y)];
+			pos_xi = getIndex(p.x);
+			pos_yi = getIndex(p.y);
+			moving_pos_x = p.x;
+			moving_pos_y = p.y;
 			tablero[getIndex(p.x)][getIndex(p.y)] = null;
-		} else if (!mouseListener.isPressed() && moving != null) {
-			tablero[getIndex(p.x)][getIndex(p.y)] = moving;
-			moving = null;
 		} else if (mouseListener.isPressed() && moving != null) {
 			moving_pos_x = p.x;
 			moving_pos_y = p.y;
+		} else if (!mouseListener.isPressed() && moving != null) {
+			if (moving.isValid(pos_xi, pos_yi, getIndex(p.x), getIndex(p.y))) {
+				tablero[getIndex(p.x)][getIndex(p.y)] = moving;
+				moving = null;
+			} else {
+				tablero[pos_xi][pos_yi] = moving;
+				moving = null;
+			}
 		}
 	}
 

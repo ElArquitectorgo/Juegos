@@ -1,4 +1,4 @@
-package Game;
+package game;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -79,7 +79,7 @@ public class Window extends JFrame implements Runnable {
 
                 double deltaWanted = 0.0167;
                 update(deltaWanted);
-                long msToSleep = (long)((deltaWanted - deltaTime) * 1000);
+                long msToSleep = (long)((deltaWanted - deltaTime) * 500); //Crear variable para eso
                 if (msToSleep > 0) {
                     Thread.sleep(msToSleep);
                 }

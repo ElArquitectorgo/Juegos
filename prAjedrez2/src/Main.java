@@ -1,4 +1,4 @@
-import Game.Window;
+import game.Window;
 
 public class Main {
 

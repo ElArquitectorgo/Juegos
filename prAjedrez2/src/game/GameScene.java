@@ -12,29 +12,29 @@ import pieces.Piece;
 
 public class GameScene extends Scene {
 	private ML mouseListener;
-	private Piece [][] tablero;
+	private Piece[][] tablero;
 	private Piece moving;
 	private int moving_pos_x, moving_pos_y, pos_xi, pos_yi;
-	
+
 	public GameScene(ML mouseListener) {
 		this.mouseListener = mouseListener;
 		tablero = new Piece[8][8];
-		for (int i = 0; i < 8; i ++) {
-			tablero[i][1] = new Pawn("BLACK");
-			tablero[i][6] = new Pawn("WHITE");
+		for (int i = 0; i < 8; i++) {
+			tablero[i][1] = new Pawn(pieces.Color.BLACK); // Paco: hay un Color importado de java.awt
+			tablero[i][6] = new Pawn(pieces.Color.WHITE);
 		}
 	}
-	
+
 	public int getPos(int n) {
 		return n * Window.getTileSize();
 	}
-	
+
 	public int getIndex(int n) {
 		return n / Window.getTileSize();
 	}
-	
+
 	@Override
-	public void update(double dt) {		
+	public void update(double dt) {
 		Point p = MouseInfo.getPointerInfo().getLocation();
 		if (mouseListener.isPressed() && moving == null) {
 			moving = tablero[getIndex(p.x)][getIndex(p.y)];
@@ -59,21 +59,20 @@ public class GameScene extends Scene {
 
 	@Override
 	public void draw(Graphics g) {
-		Graphics2D g2 = (Graphics2D)g;
+		Graphics2D g2 = (Graphics2D) g;
 
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (i % 2 == 0 && j % 2 != 0 || i % 2 != 0 && j % 2 == 0) {
 					g2.setColor(Color.getHSBColor(40, 47, 92));
 					g2.fill(new Rectangle2D.Double(getPos(i), getPos(j), Window.getTileSize(), Window.getTileSize()));
-				}
-				else {
+				} else {
 					g2.setColor(Color.white);
 					g2.fill(new Rectangle2D.Double(getPos(i), getPos(j), Window.getTileSize(), Window.getTileSize()));
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (tablero[i][j] != null) {

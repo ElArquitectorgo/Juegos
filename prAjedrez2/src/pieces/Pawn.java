@@ -8,9 +8,10 @@ import javax.imageio.ImageIO;
 
 public class Pawn extends Piece {
 	private Color color;
-	public Pawn(String color) {
+
+	public Pawn(Color color) {
 		try {
-			if (color == "WHITE") {
+			if (color == Color.WHITE) {
 				img = ImageIO.read(Pawn.class.getResource("/pieces/images/Peonb.png"));
 				this.color = Color.WHITE;
 			} else {
@@ -37,7 +38,10 @@ public class Pawn extends Piece {
 		}
 		return valid_moves;
 	}
-	
+
+	// Paco: creo que la pieza debería tener su posición, y que valid_moves debería
+	// ser una variable de instancia que se calcula cuando la pieza cambia de
+	// posición
 	public boolean isValid(int xi, int yi, int xf, int yf) {
 		List<Point> valid_moves = validMoves(xi, yi, xf, yf);
 		return valid_moves.contains(new Point(xf, yf));

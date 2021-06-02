@@ -9,7 +9,6 @@ import game.Window;
 
 public abstract class Piece {
 	protected BufferedImage img;
-	protected enum Color {WHITE, BLACK};
 
 	abstract public List<Point> validMoves(int xi, int yi, int xf, int yf);
 	abstract public boolean isValid(int xi, int yi, int xf, int yf);

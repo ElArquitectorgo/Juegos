@@ -20,8 +20,8 @@ public class GameScene extends Scene {
 		this.mouseListener = mouseListener;
 		tablero = new Piece[8][8];
 		for (int i = 0; i < 8; i ++) {
-			tablero[i][1] = new Pawn("black");
-			tablero[i][6] = new Pawn("white");
+			tablero[i][1] = new Pawn("BLACK");
+			tablero[i][6] = new Pawn("WHITE");
 		}
 	}
 	

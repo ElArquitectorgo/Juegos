@@ -9,8 +9,9 @@ import game.Window;
 
 public abstract class Piece {
 	protected BufferedImage img;
+	List<Point> valid_moves;
 
-	abstract public List<Point> validMoves(int xi, int yi, int xf, int yf);
+	abstract public void validMoves(int xi, int yi, int xf, int yf);
 	abstract public boolean isValid(int xi, int yi, int xf, int yf);
 
 	public void draw(Graphics2D g2, int x, int y) {

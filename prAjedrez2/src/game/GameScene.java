@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import pieces.Pawn;
@@ -20,7 +21,7 @@ public class GameScene extends Scene {
 		this.mouseListener = mouseListener;
 		tablero = new Piece[8][8];
 		for (int i = 0; i < 8; i++) {
-			tablero[i][1] = new Pawn(pieces.Color.BLACK); // Paco: hay un Color importado de java.awt
+			tablero[i][1] = new Pawn(pieces.Color.BLACK);
 			tablero[i][6] = new Pawn(pieces.Color.WHITE);
 		}
 	}

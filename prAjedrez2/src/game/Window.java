@@ -1,8 +1,12 @@
 package game;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Insets;
+import java.awt.Toolkit;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -40,7 +44,7 @@ public class Window extends JFrame implements Runnable {
 		return window.getWidth() / 8;
 	}
 	
-    public void changeState(int newState) { // Paco: no entiendo qué quieres hacer con esto, dos formas distintas de jugar?
+    public void changeState(int newState) {
         currentState = newState;
         switch(currentState) {
             case 0:
@@ -54,7 +58,7 @@ public class Window extends JFrame implements Runnable {
         }
     }
     
-    public void update(double dt) { // Paco: ya sabes que para este juego vería más apropiado usar eventos
+    public void update(double dt) {
         Image dbImage = createImage(getWidth(), getHeight());
         Graphics dbg = dbImage.getGraphics();
         this.draw(dbg);
@@ -65,7 +69,9 @@ public class Window extends JFrame implements Runnable {
 
     public void draw(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
-        currentScene.draw(g);
+        g.setColor(Color.black);
+        g.fillRect(0, 0, 50, 50);
+        //currentScene.draw(g);
     }
     
 	@Override

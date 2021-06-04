@@ -66,10 +66,10 @@ public class GameScene extends Scene {
 			for (int j = 0; j < 8; j++) {
 				if (i % 2 == 0 && j % 2 != 0 || i % 2 != 0 && j % 2 == 0) {
 					g2.setColor(Color.getHSBColor(40, 47, 92));
-					g2.fill(new Rectangle2D.Double(getPos(i), getPos(j), Window.getTileSize(), Window.getTileSize()));
+					g2.fill(new Rectangle2D.Double(getPos(i), getPos(j)+30, Window.getTileSize(), Window.getTileSize()));
 				} else {
 					g2.setColor(Color.white);
-					g2.fill(new Rectangle2D.Double(getPos(i), getPos(j), Window.getTileSize(), Window.getTileSize()));
+					g2.fill(new Rectangle2D.Double(getPos(i), getPos(j)+30, Window.getTileSize(), Window.getTileSize()));
 				}
 			}
 		}
@@ -77,7 +77,7 @@ public class GameScene extends Scene {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (tablero[i][j] != null) {
-					tablero[i][j].draw(g2, getPos(i), getPos(j));
+					tablero[i][j].draw(g2, getPos(i), getPos(j)+30);
 				}
 			}
 		}

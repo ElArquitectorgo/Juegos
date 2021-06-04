@@ -1,12 +1,7 @@
 package game;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Insets;
-import java.awt.Toolkit;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -33,10 +28,8 @@ public class Window extends JFrame implements Runnable {
 	}
 	
 	public static Window getWindow() {
-        if (Window.window == null) {
-            Window.window = new Window(800, 800, TITLE);
-        }
-
+        if (Window.window == null) 
+            Window.window = new Window(800, 830, TITLE);
         return Window.window;
     }
 	
@@ -50,9 +43,10 @@ public class Window extends JFrame implements Runnable {
             case 0:
                 //currentScene = new MenuScene(keyListener, mouseListener); break;
             case 1:
-                currentScene = new GameScene(mouseListener); break;
+                currentScene = new GameScene(mouseListener); 
+                break;
             default:
-                System.out.println("Unknown scene.");
+                // System.out.println("Unknown scene.");
                 currentScene = null;
                 break;
         }
@@ -63,15 +57,14 @@ public class Window extends JFrame implements Runnable {
         Graphics dbg = dbImage.getGraphics();
         this.draw(dbg);
         getGraphics().drawImage(dbImage, 0, 0, this);
-
-        currentScene.update(dt);
+        //currentScene.update(dt);
     }
 
     public void draw(Graphics g) {
-        Graphics2D g2 = (Graphics2D)g;
-        g.setColor(Color.black);
-        g.fillRect(0, 0, 50, 50);
-        //currentScene.draw(g);
+        //Graphics2D g2 = (Graphics2D)g;
+        //g.setColor(Color.black);
+        //g.fillRect(0, 0, 50, 50);
+        currentScene.draw(g);
     }
     
 	@Override

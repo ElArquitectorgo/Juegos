@@ -28,8 +28,10 @@ public class Pawn extends Piece {
 		return this.color;
 	}
 	
-	public void validMoves(int xi, int yi, Piece p) {
-		valid_moves = new ArrayList<>();;
+	public void validMoves(int xi, int yi, int xf, int yf) {
+		valid_moves = new ArrayList<>();
+		Piece p = GameScene.tablero[xf][yf];
+		
 		if (color == Color.WHITE) {
 			if (p == null) {
 				if (yi - 1 >= 0)
@@ -59,8 +61,8 @@ public class Pawn extends Piece {
 		}
 	}
 
-	public boolean isValid(int xi, int yi, int xf, int yf, Piece p) {
-		validMoves(xi, yi, p);
+	public boolean isValid(int xi, int yi, int xf, int yf) {
+		validMoves(xi, yi, xf, yf);
 		return valid_moves.contains(new Point(xf, yf));
 	}
 }

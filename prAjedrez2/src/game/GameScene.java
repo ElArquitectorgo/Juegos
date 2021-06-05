@@ -12,7 +12,7 @@ import pieces.Piece;
 
 public class GameScene extends Scene {
 	private ML mouseListener;
-	private Piece[][] tablero;
+	public static Piece[][] tablero;
 	private Piece moving;
 	private int moving_pos_x, moving_pos_y, pos_xi, pos_yi;
 	public boolean isEmpty;
@@ -51,7 +51,7 @@ public class GameScene extends Scene {
 			moving_pos_y = p.y;
 		} else if (!mouseListener.isPressed() && moving != null) {
 			//Hay que aplicar una correción de másmenos 30 píxeles porque MouseInfo incluye la taskbar en el eje y
-			if (moving.isValid(pos_xi, pos_yi, x, getIndex(p.y - 30), tablero[x][getIndex(p.y - 30)])) {
+			if (moving.isValid(pos_xi, pos_yi, x, getIndex(p.y - 30))) {
 				tablero[x][getIndex(p.y - 30)] = moving;
 				moving = null;
 			} else {

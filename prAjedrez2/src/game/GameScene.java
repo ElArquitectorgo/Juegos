@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import pieces.Pawn;
@@ -16,6 +15,7 @@ public class GameScene extends Scene {
 	private Piece[][] tablero;
 	private Piece moving;
 	private int moving_pos_x, moving_pos_y, pos_xi, pos_yi;
+	public boolean isEmpty;
 
 	public GameScene(ML mouseListener) {
 		this.mouseListener = mouseListener;
@@ -37,19 +37,22 @@ public class GameScene extends Scene {
 	@Override
 	public void update(double dt) {
 		Point p = MouseInfo.getPointerInfo().getLocation();
+		int x = getIndex(p.x);
+		int y = getIndex(p.y);
 		if (mouseListener.isPressed() && moving == null) {
-			moving = tablero[getIndex(p.x)][getIndex(p.y)];
-			pos_xi = getIndex(p.x);
-			pos_yi = getIndex(p.y);
+			moving = tablero[x][y];
+			pos_xi = x;
+			pos_yi = y;
 			moving_pos_x = p.x;
 			moving_pos_y = p.y;
-			tablero[getIndex(p.x)][getIndex(p.y)] = null;
+			tablero[x][y] = null;
 		} else if (mouseListener.isPressed() && moving != null) {
 			moving_pos_x = p.x;
 			moving_pos_y = p.y;
 		} else if (!mouseListener.isPressed() && moving != null) {
-			if (moving.isValid(pos_xi, pos_yi, getIndex(p.x), getIndex(p.y))) {
-				tablero[getIndex(p.x)][getIndex(p.y)] = moving;
+			//Hay que aplicar una correción de másmenos 30 píxeles porque MouseInfo incluye la taskbar en el eje y
+			if (moving.isValid(pos_xi, pos_yi, x, getIndex(p.y - 30), tablero[x][getIndex(p.y - 30)])) {
+				tablero[x][getIndex(p.y - 30)] = moving;
 				moving = null;
 			} else {
 				tablero[pos_xi][pos_yi] = moving;

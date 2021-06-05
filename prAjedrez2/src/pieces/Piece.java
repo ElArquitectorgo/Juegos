@@ -11,8 +11,9 @@ public abstract class Piece {
 	protected BufferedImage img;
 	protected List<Point> valid_moves;
 
-	abstract public void validMoves(int xi, int yi, int xf, int yf);
-	abstract public boolean isValid(int xi, int yi, int xf, int yf);
+	abstract public void validMoves(int xi, int yi, Piece p);
+	abstract public boolean isValid(int xi, int yi, int xf, int yf, Piece p);
+	abstract Color getColor();
 
 	public void draw(Graphics2D g2, int x, int y) {
 		g2.drawImage(img, x, y, Window.getTileSize(), Window.getTileSize(), null);

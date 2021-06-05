@@ -57,13 +57,11 @@ public class Window extends JFrame implements Runnable {
         Graphics dbg = dbImage.getGraphics();
         this.draw(dbg);
         getGraphics().drawImage(dbImage, 0, 0, this);
-        //currentScene.update(dt);
+        currentScene.update(dt);
     }
 
     public void draw(Graphics g) {
         //Graphics2D g2 = (Graphics2D)g;
-        //g.setColor(Color.black);
-        //g.fillRect(0, 0, 50, 50);
         currentScene.draw(g);
     }
     

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import game.GameScene;
+
 public class Pawn extends Piece {
 	private Color color;
 
@@ -21,24 +23,44 @@ public class Pawn extends Piece {
 			e.printStackTrace();
 		}
 	}
-
-	public void validMoves(int xi, int yi, int xf, int yf) {
-		valid_moves = new ArrayList<>();
+	
+	public Color getColor() {
+		return this.color;
+	}
+	
+	public void validMoves(int xi, int yi, Piece p) {
+		valid_moves = new ArrayList<>();;
 		if (color == Color.WHITE) {
-			if (yi - 1 >= 0)
-				valid_moves.add(new Point(xi, yi - 1));
-			if (yi == 6)
-				valid_moves.add(new Point(xi, yi - 2));
+			if (p == null) {
+				if (yi - 1 >= 0)
+					valid_moves.add(new Point(xi, yi - 1));
+				if (yi == 6)
+					valid_moves.add(new Point(xi, yi - 2));
+			}
+			else if (p.getColor() == Color.BLACK && yi - 1 >= 0) {
+				if (xi - 1 >= 0)
+					valid_moves.add(new Point(xi - 1, yi - 1));
+				if (xi + 1 < 8)
+					valid_moves.add(new Point(xi + 1, yi - 1));
+			}
 		} else {
-			if (yi + 1 < 8)
-				valid_moves.add(new Point(xi, yi + 1));
-			if (yi == 1)
-				valid_moves.add(new Point(xi, yi + 2));
+			if (p == null) {
+				if (yi + 1 < 8)
+					valid_moves.add(new Point(xi, yi + 1));
+				if (yi == 1)
+					valid_moves.add(new Point(xi, yi + 2));
+			}
+			else if (p.getColor() == Color.WHITE && yi + 1 < 8) {
+				if (xi - 1 >= 0)
+					valid_moves.add(new Point(xi - 1, yi + 1));
+				if (xi + 1 < 8)
+					valid_moves.add(new Point(xi + 1, yi + 1));
+			}
 		}
 	}
 
-	public boolean isValid(int xi, int yi, int xf, int yf) {
-		validMoves(xi, yi, xf, yf);
+	public boolean isValid(int xi, int yi, int xf, int yf, Piece p) {
+		validMoves(xi, yi, p);
 		return valid_moves.contains(new Point(xf, yf));
 	}
 }

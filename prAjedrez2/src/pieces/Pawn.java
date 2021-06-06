@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import game.GameScene;
 
 public class Pawn extends Piece {
-	private Color color;
 
 	public Pawn(Color color) {
 		try {
@@ -24,45 +23,43 @@ public class Pawn extends Piece {
 		}
 	}
 	
-	public Color getColor() {
-		return this.color;
-	}
-	
-	public void validMoves(int xi, int yi, int xf, int yf) {
+	public void validMoves(int xi, int yi) {
 		valid_moves = new ArrayList<>();
-		Piece p = GameScene.tablero[xf][yf];
 		
 		if (color == Color.WHITE) {
-			if (p == null) {
+			if (yi - 1 >= 0 && GameScene.tablero[xi][yi - 1] == null) {
 				if (yi - 1 >= 0)
 					valid_moves.add(new Point(xi, yi - 1));
 				if (yi == 6)
 					valid_moves.add(new Point(xi, yi - 2));
 			}
-			else if (p.getColor() == Color.BLACK && yi - 1 >= 0) {
-				if (xi - 1 >= 0)
+			if (yi - 1 >= 0 && xi - 1 >= 0 && GameScene.tablero[xi - 1][yi - 1] != null && GameScene.tablero[xi - 1][yi - 1].getColor() == Color.BLACK) {
 					valid_moves.add(new Point(xi - 1, yi - 1));
-				if (xi + 1 < 8)
+			}
+			if (yi - 1 >= 0 && xi + 1 < 8 && GameScene.tablero[xi + 1][yi - 1] != null && GameScene.tablero[xi + 1][yi - 1].getColor() == Color.BLACK) {
 					valid_moves.add(new Point(xi + 1, yi - 1));
 			}
 		} else {
-			if (p == null) {
+			if (yi + 1 < 8 && GameScene.tablero[xi][yi + 1] == null) {
 				if (yi + 1 < 8)
 					valid_moves.add(new Point(xi, yi + 1));
 				if (yi == 1)
 					valid_moves.add(new Point(xi, yi + 2));
 			}
-			else if (p.getColor() == Color.WHITE && yi + 1 < 8) {
-				if (xi - 1 >= 0)
+			if (yi + 1 < 8 && xi - 1 >= 0 && GameScene.tablero[xi - 1][yi + 1] != null && GameScene.tablero[xi - 1][yi + 1].getColor() == Color.WHITE) {
 					valid_moves.add(new Point(xi - 1, yi + 1));
-				if (xi + 1 < 8)
+			}
+			if (yi + 1 < 8 && xi + 1 < 8 && GameScene.tablero[xi + 1][yi + 1] != null && GameScene.tablero[xi + 1][yi + 1].getColor() == Color.WHITE) {
 					valid_moves.add(new Point(xi + 1, yi + 1));
 			}
 		}
 	}
 
-	public boolean isValid(int xi, int yi, int xf, int yf) {
-		validMoves(xi, yi, xf, yf);
+	public boolean isValid(int xf, int yf) {
 		return valid_moves.contains(new Point(xf, yf));
+	}
+	
+	public Color getColor() {
+		return this.color;
 	}
 }

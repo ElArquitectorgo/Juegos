@@ -9,10 +9,11 @@ import game.Window;
 
 public abstract class Piece {
 	protected BufferedImage img;
-	protected List<Point> valid_moves;
+	public List<Point> valid_moves;
+	protected Color color;
 
-	abstract public void validMoves(int xi, int yi, int xf, int yf);
-	abstract public boolean isValid(int xi, int yi, int xf, int yf);
+	abstract public void validMoves(int xi, int yi);
+	abstract public boolean isValid(int xf, int yf);
 	abstract Color getColor();
 
 	public void draw(Graphics2D g2, int x, int y) {

@@ -5,17 +5,20 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.util.List;
 
 import pieces.Pawn;
 import pieces.Piece;
+import pieces.Rook;
 
 public class GameScene extends Scene {
 	private ML mouseListener;
 	public static Piece[][] tablero;
 	private Piece moving;
 	private int moving_pos_x, moving_pos_y, pos_xi, pos_yi;
-	public boolean isEmpty;
+	public boolean draw_possibles;
 
 	public GameScene(ML mouseListener) {
 		this.mouseListener = mouseListener;
@@ -24,6 +27,10 @@ public class GameScene extends Scene {
 			tablero[i][1] = new Pawn(pieces.Color.BLACK);
 			tablero[i][6] = new Pawn(pieces.Color.WHITE);
 		}
+		tablero[0][7] = new Rook(pieces.Color.WHITE);
+		tablero[7][7] = new Rook(pieces.Color.WHITE);
+		tablero[0][0] = new Rook(pieces.Color.BLACK);
+		tablero[7][0] = new Rook(pieces.Color.BLACK);
 	}
 
 	public int getPos(int n) {
@@ -46,16 +53,22 @@ public class GameScene extends Scene {
 			moving_pos_x = p.x;
 			moving_pos_y = p.y;
 			tablero[x][y] = null;
+			if (moving != null) {
+				moving.validMoves(pos_xi, pos_yi);
+				draw_possibles = true;
+			}
 		} else if (mouseListener.isPressed() && moving != null) {
 			moving_pos_x = p.x;
 			moving_pos_y = p.y;
 		} else if (!mouseListener.isPressed() && moving != null) {
 			//Hay que aplicar una correción de másmenos 30 píxeles porque MouseInfo incluye la taskbar en el eje y
-			if (moving.isValid(pos_xi, pos_yi, x, getIndex(p.y - 30))) {
+			if (moving.isValid(x, getIndex(p.y - 30))) {
+				draw_possibles = false;
 				tablero[x][getIndex(p.y - 30)] = moving;
 				moving = null;
 			} else {
 				tablero[pos_xi][pos_yi] = moving;
+				draw_possibles = false;
 				moving = null;
 			}
 		}
@@ -84,6 +97,15 @@ public class GameScene extends Scene {
 				}
 			}
 		}
+		
+		if (draw_possibles) {
+			g2.setColor(Color.YELLOW);
+			List<Point> valid_moves = moving.valid_moves;
+			for (Point p: valid_moves) {		
+				g2.fill(new Ellipse2D.Double(getPos(p.x) + Window.getTileSize() / 3, getPos(p.y) + 30 + Window.getTileSize() / 3, Window.getTileSize() / 3, Window.getTileSize() / 3));
+			}
+		}
+		
 		if (moving != null) {
 			moving.draw(g2, moving_pos_x - Window.getTileSize() / 2, moving_pos_y - Window.getTileSize() / 2);
 		}

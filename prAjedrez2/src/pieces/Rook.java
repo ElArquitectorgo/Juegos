@@ -25,6 +25,7 @@ public class Rook extends Piece {
 
 	public void validMoves(int xi, int yi) {
 		valid_moves = new ArrayList<>();
+		
 		//Horizontal derecha
 		int i = xi + 1;
 		while (i < 8 && GameScene.tablero[i][yi] == null) {

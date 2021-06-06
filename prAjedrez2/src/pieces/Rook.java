@@ -60,10 +60,6 @@ public class Rook extends Piece {
 		
 	}
 
-	public boolean isValid(int xf, int yf) {
-		return valid_moves.contains(new Point(xf, yf));
-	}
-
 	Color getColor() {
 		return this.color;
 	}

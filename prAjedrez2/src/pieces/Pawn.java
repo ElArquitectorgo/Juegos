@@ -54,10 +54,6 @@ public class Pawn extends Piece {
 			}
 		}
 	}
-
-	public boolean isValid(int xf, int yf) {
-		return valid_moves.contains(new Point(xf, yf));
-	}
 	
 	public Color getColor() {
 		return this.color;

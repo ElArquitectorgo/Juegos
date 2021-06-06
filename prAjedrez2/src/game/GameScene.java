@@ -34,6 +34,8 @@ public class GameScene extends Scene {
 		tablero[7][0] = new Rook(pieces.Color.BLACK);
 		tablero[2][7] = new Bishop(pieces.Color.WHITE);
 		tablero[5][7] = new Bishop(pieces.Color.WHITE);
+		tablero[2][0] = new Bishop(pieces.Color.BLACK);
+		tablero[5][0] = new Bishop(pieces.Color.BLACK);
 	}
 
 	public int getPos(int n) {

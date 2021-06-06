@@ -34,19 +34,19 @@ public class Bishop extends Piece {
 		}
 		//Abajo izquierda
 		i = xi - 1; j = yi + 1;
-		while (i > 0 && j < 8 && GameScene.tablero[i][j] == null) {
+		while (i >= 0 && j < 8 && GameScene.tablero[i][j] == null) {
 			valid_moves.add(new Point(i, j));
 			i--; j++;
 		}
 		//Arriba derecha
 		i = xi + 1; j = yi - 1;
-		while (i < 8 && j > 0 && GameScene.tablero[i][j] == null) {
+		while (i < 8 && j >= 0 && GameScene.tablero[i][j] == null) {
 			valid_moves.add(new Point(i, j));
 			i++; j--;
 		}
 		//Arriba izquierda
 		i = xi - 1; j = yi - 1;
-		while (i > 0 && j > 0 && GameScene.tablero[i][j] == null) {
+		while (i >= 0 && j > 0 && GameScene.tablero[i][j] == null) {
 			valid_moves.add(new Point(i, j));
 			i--; j--;
 		}

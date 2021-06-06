@@ -9,6 +9,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
+import pieces.Bishop;
 import pieces.Pawn;
 import pieces.Piece;
 import pieces.Rook;
@@ -31,6 +32,8 @@ public class GameScene extends Scene {
 		tablero[7][7] = new Rook(pieces.Color.WHITE);
 		tablero[0][0] = new Rook(pieces.Color.BLACK);
 		tablero[7][0] = new Rook(pieces.Color.BLACK);
+		tablero[2][7] = new Bishop(pieces.Color.WHITE);
+		tablero[5][7] = new Bishop(pieces.Color.WHITE);
 	}
 
 	public int getPos(int n) {

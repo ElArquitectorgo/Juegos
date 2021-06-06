@@ -12,6 +12,7 @@ import java.util.List;
 import pieces.Bishop;
 import pieces.Pawn;
 import pieces.Piece;
+import pieces.Queen;
 import pieces.Rook;
 
 public class GameScene extends Scene {
@@ -36,6 +37,8 @@ public class GameScene extends Scene {
 		tablero[5][7] = new Bishop(pieces.Color.WHITE);
 		tablero[2][0] = new Bishop(pieces.Color.BLACK);
 		tablero[5][0] = new Bishop(pieces.Color.BLACK);
+		tablero[3][7] = new Queen(pieces.Color.WHITE);
+		tablero[3][0] = new Queen(pieces.Color.BLACK);
 	}
 
 	public int getPos(int n) {

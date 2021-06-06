@@ -27,26 +27,26 @@ public class Bishop extends Piece {
 		valid_moves = new ArrayList<>();
 		
 		//Abajo derecha
-		int i = xi; int j = yi;
+		int i = xi + 1; int j = yi + 1;
 		while (i < 8 && j < 8 && GameScene.tablero[i][j] == null) {
 			valid_moves.add(new Point(i, j));
 			i++; j++;
 		}
 		//Abajo izquierda
-		i = xi; j = yi;
-		while (i >= 0 && j < 8 && GameScene.tablero[i][j] == null) {
+		i = xi - 1; j = yi + 1;
+		while (i > 0 && j < 8 && GameScene.tablero[i][j] == null) {
 			valid_moves.add(new Point(i, j));
 			i--; j++;
 		}
 		//Arriba derecha
-		i = xi; j = yi;
-		while (i < 8 && j >= 0 && GameScene.tablero[i][j] == null) {
+		i = xi + 1; j = yi - 1;
+		while (i < 8 && j > 0 && GameScene.tablero[i][j] == null) {
 			valid_moves.add(new Point(i, j));
 			i++; j--;
 		}
 		//Arriba izquierda
-		i = xi; j = yi;
-		while (i >= 0 && j >= 0 && GameScene.tablero[i][j] == null) {
+		i = xi - 1; j = yi - 1;
+		while (i > 0 && j > 0 && GameScene.tablero[i][j] == null) {
 			valid_moves.add(new Point(i, j));
 			i--; j--;
 		}

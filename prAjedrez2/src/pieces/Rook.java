@@ -26,7 +26,7 @@ public class Rook extends Piece {
 	public void validMoves(int xi, int yi) {
 		valid_moves = new ArrayList<>();
 		//Horizontal derecha
-		int i = xi;
+		int i = xi + 1;
 		while (i < 8 && GameScene.tablero[i][yi] == null) {
 			valid_moves.add(new Point(i, yi));
 			i++;
@@ -34,7 +34,7 @@ public class Rook extends Piece {
 		if (i < 8 && GameScene.tablero[i][yi].getColor() != this.color)
 			valid_moves.add(new Point(i, yi));
 		//Horizontal izquierda
-		i = xi;
+		i = xi - 1;
 		while (i >= 0 && GameScene.tablero[i][yi] == null) {
 			valid_moves.add(new Point(i, yi));
 			i--;
@@ -42,7 +42,7 @@ public class Rook extends Piece {
 		if (i >= 0 && GameScene.tablero[i][yi].getColor() != this.color)
 			valid_moves.add(new Point(i, yi));
 		//Vertical arriba
-		int j = yi;
+		int j = yi + 1;
 		while (j < 8 && GameScene.tablero[xi][j] == null) {
 			valid_moves.add(new Point(xi, j));
 			j++;
@@ -50,7 +50,7 @@ public class Rook extends Piece {
 		if (j < 8 && GameScene.tablero[xi][j].getColor() != this.color)
 			valid_moves.add(new Point(xi, j));
 		//Vertical abajo
-		j = yi;
+		j = yi - 1;
 		while (j >= 0 && GameScene.tablero[xi][j] == null) {
 			valid_moves.add(new Point(xi, j));
 			j--;

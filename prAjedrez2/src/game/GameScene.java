@@ -10,6 +10,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 import pieces.Bishop;
+import pieces.Knight;
 import pieces.Pawn;
 import pieces.Piece;
 import pieces.Queen;
@@ -33,6 +34,10 @@ public class GameScene extends Scene {
 		tablero[7][7] = new Rook(pieces.Color.WHITE);
 		tablero[0][0] = new Rook(pieces.Color.BLACK);
 		tablero[7][0] = new Rook(pieces.Color.BLACK);
+		tablero[1][7] = new Knight(pieces.Color.WHITE);
+		tablero[6][7] = new Knight(pieces.Color.WHITE);
+		tablero[1][0] = new Knight(pieces.Color.BLACK);
+		tablero[6][0] = new Knight(pieces.Color.BLACK);
 		tablero[2][7] = new Bishop(pieces.Color.WHITE);
 		tablero[5][7] = new Bishop(pieces.Color.WHITE);
 		tablero[2][0] = new Bishop(pieces.Color.BLACK);

@@ -92,10 +92,4 @@ public class Queen extends Piece {
 		if (j >= 0 && GameScene.tablero[xi][j].getColor() != this.color)
 			valid_moves.add(new Point(xi, j));		
 	}
-
-	@Override
-	Color getColor() {
-		return this.color;
-	}
-
 }

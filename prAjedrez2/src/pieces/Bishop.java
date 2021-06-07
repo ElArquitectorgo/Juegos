@@ -59,9 +59,4 @@ public class Bishop extends Piece {
 		if (i >= 0 && j > 0 && GameScene.tablero[i][j].getColor() != this.color)
 			valid_moves.add(new Point(i, j));
 	}
-
-	Color getColor() {
-		return this.color;
-	}
-
 }

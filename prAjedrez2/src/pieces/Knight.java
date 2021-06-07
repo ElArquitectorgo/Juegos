@@ -56,9 +56,4 @@ public class Knight extends Piece {
 			}
 		}
 	}
-
-	Color getColor() {
-		return this.color;
-	}
-
 }

@@ -57,12 +57,6 @@ public class Rook extends Piece {
 			j--;
 		}
 		if (j >= 0 && GameScene.tablero[xi][j].getColor() != this.color)
-			valid_moves.add(new Point(xi, j));
-		
+			valid_moves.add(new Point(xi, j));		
 	}
-
-	Color getColor() {
-		return this.color;
-	}
-
 }

@@ -18,14 +18,16 @@ import pieces.Queen;
 import pieces.Rook;
 
 public class GameScene extends Scene {
-	private ML mouseListener;
-	public static Piece[][] tablero;
+	private ML mouseListener;	
 	private Piece moving;
 	private int moving_pos_x, moving_pos_y, pos_xi, pos_yi;
-	public boolean draw_possibles;
+	private boolean draw_possibles;
+	private int turn;
+	public static Piece[][] tablero;
 
 	public GameScene(ML mouseListener) {
 		this.mouseListener = mouseListener;
+		turn = 1;
 		tablero = new Piece[8][8];
 		for (int i = 0; i < 8; i++) {
 			tablero[i][1] = new Pawn(pieces.Color.BLACK);
@@ -64,14 +66,18 @@ public class GameScene extends Scene {
 		int y = getIndex(p.y);
 		if (mouseListener.isPressed() && moving == null) {
 			moving = tablero[x][y];
-			pos_xi = x;
-			pos_yi = y;
-			moving_pos_x = p.x;
-			moving_pos_y = p.y;
-			tablero[x][y] = null;
-			if (moving != null) {
-				moving.validMoves(pos_xi, pos_yi);
-				draw_possibles = true;
+			if (moving != null && turn % 2 == 1 && moving.getColor() == pieces.Color.WHITE || moving != null && turn % 2 == 0 && moving.getColor() == pieces.Color.BLACK) {
+				pos_xi = x;
+				pos_yi = y;
+				moving_pos_x = p.x;
+				moving_pos_y = p.y;
+				tablero[x][y] = null;
+				if (moving != null) {
+					moving.validMoves(pos_xi, pos_yi);
+					draw_possibles = true;
+				}
+			} else {
+				moving = null;
 			}
 		} else if (mouseListener.isPressed() && moving != null) {
 			moving_pos_x = p.x;
@@ -82,6 +88,7 @@ public class GameScene extends Scene {
 				draw_possibles = false;
 				tablero[x][getIndex(p.y - 30)] = moving;
 				moving = null;
+				turn++;
 			} else {
 				tablero[pos_xi][pos_yi] = moving;
 				draw_possibles = false;

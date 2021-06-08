@@ -7,6 +7,7 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.List;
 
 import pieces.Bishop;
@@ -23,6 +24,7 @@ public class GameScene extends Scene {
 	private int moving_pos_x, moving_pos_y, pos_xi, pos_yi;
 	private boolean draw_possibles;
 	private int turn;
+	private pieces.Color check_color;
 	public static Piece[][] tablero;
 
 	public GameScene(ML mouseListener) {
@@ -30,8 +32,8 @@ public class GameScene extends Scene {
 		turn = 1;
 		tablero = new Piece[8][8];
 		for (int i = 0; i < 8; i++) {
-			tablero[i][1] = new Pawn(pieces.Color.BLACK);
-			tablero[i][6] = new Pawn(pieces.Color.WHITE);
+			//tablero[i][1] = new Pawn(pieces.Color.BLACK);
+			//tablero[i][6] = new Pawn(pieces.Color.WHITE);
 		}
 		tablero[0][7] = new Rook(pieces.Color.WHITE);
 		tablero[7][7] = new Rook(pieces.Color.WHITE);
@@ -87,6 +89,12 @@ public class GameScene extends Scene {
 			if (moving.isValid(x, getIndex(p.y - 30))) {
 				draw_possibles = false;
 				tablero[x][getIndex(p.y - 30)] = moving;
+				if (isCheck() && check_color == moving.getColor()) {
+					System.out.println("Not valid");
+					tablero[pos_xi][pos_yi] = moving;
+					tablero[x][getIndex(p.y - 30)] = null;
+					turn--;
+				}
 				moving = null;
 				turn++;
 			} else {
@@ -95,6 +103,32 @@ public class GameScene extends Scene {
 				moving = null;
 			}
 		}
+	}
+
+	public boolean isCheck() {
+		boolean c = false;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (tablero[i][j] != null && tablero[i][j].getClass() != pieces.King.class && tablero[i][j].getColor() == pieces.Color.BLACK) {
+					tablero[i][j].validMoves(i, j);
+					for (Point pt: tablero[i][j].valid_moves) {
+						if (tablero[pt.x][pt.y] != null && tablero[pt.x][pt.y].getClass() == pieces.King.class && tablero[pt.x][pt.y].getColor() == pieces.Color.WHITE) {
+							c = true;
+							check_color = pieces.Color.WHITE;
+						}
+					}
+				} else if (tablero[i][j] != null && tablero[i][j].getClass() != pieces.King.class && tablero[i][j].getColor() == pieces.Color.WHITE) {
+					tablero[i][j].validMoves(i, j);
+					for (Point pt: tablero[i][j].valid_moves) {
+						if (tablero[pt.x][pt.y] != null && tablero[pt.x][pt.y].getClass() == pieces.King.class && tablero[pt.x][pt.y].getColor() == pieces.Color.BLACK) {
+							c = true;	
+							check_color = pieces.Color.BLACK;
+						}
+					}
+				}
+			}
+		}
+		return c;
 	}
 
 	@Override

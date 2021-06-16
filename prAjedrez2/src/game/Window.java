@@ -56,7 +56,7 @@ public class Window extends JFrame implements Runnable {
         Image dbImage = createImage(getWidth(), getHeight());
         Graphics dbg = dbImage.getGraphics();
         this.draw(dbg);
-        getGraphics().drawImage(dbImage, 0, 0, this);
+        getContentPane().getGraphics().drawImage(dbImage, 0, 0, this);
         currentScene.update(dt);
     }
 

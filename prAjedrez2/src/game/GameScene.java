@@ -19,7 +19,7 @@ import pieces.Queen;
 import pieces.Rook;
 
 public class GameScene extends Scene {
-	private ML mouseListener;	
+	private ML mouseListener;
 	private Piece moving;
 	private int moving_pos_x, moving_pos_y, pos_xi, pos_yi;
 	private boolean draw_possibles;
@@ -32,8 +32,8 @@ public class GameScene extends Scene {
 		turn = 1;
 		tablero = new Piece[8][8];
 		for (int i = 0; i < 8; i++) {
-			//tablero[i][1] = new Pawn(pieces.Color.BLACK);
-			//tablero[i][6] = new Pawn(pieces.Color.WHITE);
+			// tablero[i][1] = new Pawn(pieces.Color.BLACK);
+			// tablero[i][6] = new Pawn(pieces.Color.WHITE);
 		}
 		tablero[0][7] = new Rook(pieces.Color.WHITE);
 		tablero[7][7] = new Rook(pieces.Color.WHITE);
@@ -68,7 +68,8 @@ public class GameScene extends Scene {
 		int y = getIndex(p.y);
 		if (mouseListener.isPressed() && moving == null) {
 			moving = tablero[x][y];
-			if (moving != null && turn % 2 == 1 && moving.getColor() == pieces.Color.WHITE || moving != null && turn % 2 == 0 && moving.getColor() == pieces.Color.BLACK) {
+			if (moving != null && turn % 2 == 1 && moving.getColor() == pieces.Color.WHITE
+					|| moving != null && turn % 2 == 0 && moving.getColor() == pieces.Color.BLACK) {
 				pos_xi = x;
 				pos_yi = y;
 				moving_pos_x = p.x;
@@ -85,14 +86,13 @@ public class GameScene extends Scene {
 			moving_pos_x = p.x;
 			moving_pos_y = p.y;
 		} else if (!mouseListener.isPressed() && moving != null) {
-			//Hay que aplicar una correción de másmenos 30 píxeles porque MouseInfo incluye la taskbar en el eje y
-			if (moving.isValid(x, getIndex(p.y - 30))) {
+			if (moving.isValid(x, getIndex(p.y))) {
 				draw_possibles = false;
-				tablero[x][getIndex(p.y - 30)] = moving;
+				tablero[x][getIndex(p.y)] = moving;
 				if (isCheck() && check_color == moving.getColor()) {
 					System.out.println("Not valid");
 					tablero[pos_xi][pos_yi] = moving;
-					tablero[x][getIndex(p.y - 30)] = null;
+					tablero[x][getIndex(p.y)] = null;
 					turn--;
 				}
 				moving = null;
@@ -109,19 +109,23 @@ public class GameScene extends Scene {
 		boolean c = false;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				if (tablero[i][j] != null && tablero[i][j].getClass() != pieces.King.class && tablero[i][j].getColor() == pieces.Color.BLACK) {
+				if (tablero[i][j] != null && tablero[i][j].getClass() != pieces.King.class
+						&& tablero[i][j].getColor() == pieces.Color.BLACK) {
 					tablero[i][j].validMoves(i, j);
-					for (Point pt: tablero[i][j].valid_moves) {
-						if (tablero[pt.x][pt.y] != null && tablero[pt.x][pt.y].getClass() == pieces.King.class && tablero[pt.x][pt.y].getColor() == pieces.Color.WHITE) {
+					for (Point pt : tablero[i][j].valid_moves) {
+						if (tablero[pt.x][pt.y] != null && tablero[pt.x][pt.y].getClass() == pieces.King.class
+								&& tablero[pt.x][pt.y].getColor() == pieces.Color.WHITE) {
 							c = true;
 							check_color = pieces.Color.WHITE;
 						}
 					}
-				} else if (tablero[i][j] != null && tablero[i][j].getClass() != pieces.King.class && tablero[i][j].getColor() == pieces.Color.WHITE) {
+				} else if (tablero[i][j] != null && tablero[i][j].getClass() != pieces.King.class
+						&& tablero[i][j].getColor() == pieces.Color.WHITE) {
 					tablero[i][j].validMoves(i, j);
-					for (Point pt: tablero[i][j].valid_moves) {
-						if (tablero[pt.x][pt.y] != null && tablero[pt.x][pt.y].getClass() == pieces.King.class && tablero[pt.x][pt.y].getColor() == pieces.Color.BLACK) {
-							c = true;	
+					for (Point pt : tablero[i][j].valid_moves) {
+						if (tablero[pt.x][pt.y] != null && tablero[pt.x][pt.y].getClass() == pieces.King.class
+								&& tablero[pt.x][pt.y].getColor() == pieces.Color.BLACK) {
+							c = true;
 							check_color = pieces.Color.BLACK;
 						}
 					}
@@ -139,10 +143,10 @@ public class GameScene extends Scene {
 			for (int j = 0; j < 8; j++) {
 				if (i % 2 == 0 && j % 2 != 0 || i % 2 != 0 && j % 2 == 0) {
 					g2.setColor(Color.getHSBColor(40, 47, 92));
-					g2.fill(new Rectangle2D.Double(getPos(i), getPos(j)+30, Window.getTileSize(), Window.getTileSize()));
+					g2.fill(new Rectangle2D.Double(getPos(i), getPos(j), Window.getTileSize(), Window.getTileSize()));
 				} else {
 					g2.setColor(Color.white);
-					g2.fill(new Rectangle2D.Double(getPos(i), getPos(j)+30, Window.getTileSize(), Window.getTileSize()));
+					g2.fill(new Rectangle2D.Double(getPos(i), getPos(j), Window.getTileSize(), Window.getTileSize()));
 				}
 			}
 		}
@@ -150,19 +154,20 @@ public class GameScene extends Scene {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (tablero[i][j] != null) {
-					tablero[i][j].draw(g2, getPos(i), getPos(j)+30);
+					tablero[i][j].draw(g2, getPos(i), getPos(j));
 				}
 			}
 		}
-		
+
 		if (draw_possibles) {
 			g2.setColor(Color.YELLOW);
 			List<Point> valid_moves = moving.valid_moves;
-			for (Point p: valid_moves) {		
-				g2.fill(new Ellipse2D.Double(getPos(p.x) + Window.getTileSize() / 3, getPos(p.y) + 30 + Window.getTileSize() / 3, Window.getTileSize() / 3, Window.getTileSize() / 3));
+			for (Point p : valid_moves) {
+				g2.fill(new Ellipse2D.Double(getPos(p.x) + Window.getTileSize() / 3,
+						getPos(p.y) + Window.getTileSize() / 3, Window.getTileSize() / 3, Window.getTileSize() / 3));
 			}
 		}
-		
+
 		if (moving != null) {
 			moving.draw(g2, moving_pos_x - Window.getTileSize() / 2, moving_pos_y - Window.getTileSize() / 2);
 		}
